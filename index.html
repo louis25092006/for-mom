@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Lena</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background-color: #fb888897;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Dancing Script', cursive;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .content {
+            font-size: 3rem;
+            color: #333;
+            position: absolute;
+            z-index: 2;
+            opacity: 0;
+            animation: explode 1s forwards;
+        }
+
+        @keyframes explode {
+            0% {
+                transform: scale(1) translateY(-100px);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.5) translateY(-50px);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1) translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .heart {
+            position: absolute;
+            color: #800000;
+            font-size: 1.5rem;
+            animation: fall 3s linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100px) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) scale(0.5);
+                opacity: 0;
+            }
+        }
+
+        footer.footer {
+            position: fixed;
+            bottom: 20px;
+            width: 50%;
+            text-align: center;
+            padding: 10px;
+            background-color: #fb888897;
+            color: white;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="content">Всі ці сердечка для найкращої мами</div>
+
+<footer class="footer">
+    Олені Віталіївні від Ірини Вадимівни
+</footer>
+
+<script>
+    const texts = ["Всі ці сердечка для найкращої мами", "Люблю тебе", "   ",];
+    let currentTextIndex = 0;
+
+    // Генерація сердечок
+    function createHeart() {
+        const heart = document.createElement('div');
+        heart.textContent = '❤️';
+        heart.classList.add('heart');
+
+        // Випадкове позиціонування по горизонталі (в межах ширини екрана)
+        heart.style.left = Math.random() * window.innerWidth + 'px';
+
+        // Випадковий розмір сердечка
+        heart.style.fontSize = Math.random() * 20 + 30 + 'px';
+
+        // Випадкова вертикальна позиція для появи сердечка (в межах екрана)
+        heart.style.top = Math.random() * window.innerHeight + 'px';
+
+        // Додаємо серце до body
+        document.body.appendChild(heart);
+
+        // Видалення серця після анімації
+        setTimeout(() => {
+            heart.remove();
+        }, 3000);
+    }
+
+    // Створюємо 5 сердець кожні 300 мс
+    setInterval(() => {
+        for (let i = 0; i < 6; i++) {
+            createHeart();
+        }
+    }, 50);
+
+    // Змінюємо текст при натисканні
+    document.body.addEventListener('click', () => {
+        currentTextIndex = (currentTextIndex + 1) % texts.length;
+        const content = document.querySelector('.content');
+        content.style.animation = 'none';  
+        content.offsetHeight; 
+        content.style.animation = 'explode 1s forwards'; 
+        content.textContent = texts[currentTextIndex];
+    });
+</script>
+
+</body>
+</html>
